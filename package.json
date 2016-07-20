@@ -1,0 +1,22 @@
+{
+  "name": "krunal-patel.Twitter-Node",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patelkrunal/Twitter-Node.git"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Krunal Patel",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "~4.0.0",
+    "forever": "^0.15.1",
+    "indicative": "^1.3.1",
+    "morgan": "~1.0.0",
+    "underscore": "*",
+    "twit":"*"
+  }
+}
