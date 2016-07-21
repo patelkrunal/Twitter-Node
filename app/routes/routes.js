@@ -27,30 +27,32 @@ var _          = require('underscore');
     // ----------------------------------------------------
 
     var Twit = require('twit')
-
-
+    var T = new Twit({
+                  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+                  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+                  access_token: process.env.TWITTER_ACCESS_TOKEN,
+                  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+                  timeout_ms:60*1000,  // optional HTTP request timeout to apply to all requests.
+                });
+    var Tt = process.env.TWITTER_TOKEN;
 
     router.route('/TwitterPost')
-        .get(function(req, res) {
-        var T = new Twit({
-              consumer_key: process.env.TWITTER_CONSUMER_KEY,
-              consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-              access_token: process.env.TWITTER_ACCESS_TOKEN,
-              access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-              timeout_ms:60*1000,  // optional HTTP request timeout to apply to all requests.
-            });
-
+        .post(function(req, res) {
+        if(Tt==req.body.token){
+//            req.body.text = req.body.text==''?'Hello Wolrd':req.body.text;
             //
             //  tweet 'hello world!'
             //
-            T.post('statuses/update', { status: 'hello world!' }, function(err, data, response) {
+            T.post('statuses/update', { status: req.body.text }, function(err, data, response) {
                 if(err){
-                    res.json({message:err});
+                    console.error({message:err});
                 }
-                console.log(data);
-                res.json(data);
+                console.log("Successfully Tweet!");
             });
-
+            res.send(200);
+        }
+        else
+            res.send(501);
         });
 
 module.exports = router;
